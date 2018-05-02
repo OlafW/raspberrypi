@@ -1,8 +1,27 @@
 #! /bin/bash
 
-VIDEOFILE=/home/pi/tussenwater/tw_test.mp4
+VIDEOFILE=0
 
-amixer -c 1
-amixer sset 'Headphone' 80
+for f in ./*; do
 
-omxplayer -o alsa --no-osd --loop --layout 2.0 ${VIDEOFILE}
+    filename=$(basename -- "$f")
+    extension="${filename##*.}"
+
+    if [[ "$extension" == "mp4" ]] || [[ "$extension" == "mov" ]]; then
+        VIDEOFILE=$(pwd)/"$filename"
+        break
+    fi
+done
+
+if [[ "$VIDEOFILE" == 0 ]]; then
+    echo "no videofile found, exititing"
+    exit
+    
+else
+    echo "$VIDEOFILE"
+    open "$VIDEOFILE"
+    # amixer -c 1
+    # amixer sset 'Headphone' 80
+    #
+    # omxplayer -o alsa --no-osd --loop --layout 2.0 "$VIDEOFILE"
+fi
