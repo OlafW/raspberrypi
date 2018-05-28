@@ -11,8 +11,8 @@ done
 for f in "$USB"*; do
   filename=$(basename -- "$f")
   extension="${filename##*.}"
-  
-  if [[ "$extension" == "mp4" ]] || [[ "$extension" == "mov" ]]; then 
+
+  if [[ "$extension" == "mp4" ]] || [[ "$extension" == "mov" ]]; then
     VIDEOFILE="$USB""$filename"
     echo -e "Playing file " "$VIDEOFILE\n"
     break
@@ -23,9 +23,9 @@ if [[ "$VIDEOFILE" == 0 ]]; then
   echo "no videofile found, exititing"
   exit
 
-else 
+else
   amixer -c 1
-  amixer sset 'Headphone' 80
+  amixer cset numid=6 80 #Volume in %
 
   omxplayer -o alsa --no-osd --loop --layout 2.0 "$VIDEOFILE"
 fi
