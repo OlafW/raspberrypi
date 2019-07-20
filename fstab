@@ -1,8 +1,0 @@
-proc            /proc           proc    defaults          0       0
-/dev/mmcblk0p6  /boot           vfat    defaults          0       2
-/dev/mmcblk0p7  /               ext4    defaults,noatime  0       1
-# a swapfile is not a swap partition, no line here
-#   use  dphys-swapfile swap[on|off]  for that
-
-# auto mount usb for specific UUID
-UUID=582C-1AF9 /media/usb vfat auto,nofail,noatime,users,rw,uid=pi,gid=pi 0 0

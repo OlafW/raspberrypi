@@ -1,10 +1,10 @@
 #! /bin/bash
 
-beamer_state="standby"
-prev_beamer_state="standby"
-
 BEAMER_ON="on"
 BEAMER_OFF="standby"
+
+beamer_state="$BEAMER_OFF"
+prev_beamer_state="$BEAMER_OFF"
 
 while true; do
 
