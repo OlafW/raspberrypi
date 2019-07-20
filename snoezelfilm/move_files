@@ -1,0 +1,16 @@
+#! /bin/bash
+
+
+if [[ $# < 1 ]]; then
+	echo "$program: give:
+		  1: ip adress of pi"
+	exit
+
+else
+    IP=$1
+
+    scp ./rc.local pi@"$IP":/etc
+    scp ./detect_shutdown ./play_snoezel pi@"$IP":/home/pi/projecten/snoezelfilm
+    # scp ./asound.conf pi@"$IP":/home/pi/
+    # scp ./fstab pi@"$IP":/home/pi/
+fi

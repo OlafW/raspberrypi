@@ -1,0 +1,23 @@
+#! /bin/bash
+
+beamer_state="standby"
+prev_beamer_state="standby"
+
+while true; do
+
+    beamer_state=$(echo pow 0 | cec-client -s -d 1 | grep "power status" | sed 's/^.*: //')
+
+    if [[ "$beamer_state" == "standby" && "$prev_beamer_state" == "on" ]]; then
+        echo "shutting down pi now"
+        killall omxplayer.bin
+        #sudo shutdown -h now
+        break
+
+    else
+        if [[ "$beamer_state" == "standby" || "$beamer_state" == "on" ]]; then
+            prev_beamer_state="$beamer_state"
+        fi
+        echo "$beamer_state"
+        sleep 10
+    fi
+done

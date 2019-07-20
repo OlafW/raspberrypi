@@ -1,0 +1,33 @@
+#! /bin/bash
+
+USB=/media/usb/
+VIDEOFILE=0
+
+while [ ! -d "$USB" ]; do
+    echo "Plugin usb"
+    sleep 2
+done
+
+for f in "$USB"*; do
+  filename=$(basename -- "$f")
+  extension="${filename##*.}"
+
+  if [[ "$extension" == "mp4" || "$extension" == "mov" ]]; then
+    VIDEOFILE="$USB""$filename"
+    echo -e "Playing file " "$VIDEOFILE\n"
+    break
+  fi
+done
+
+if [[ "$VIDEOFILE" == 0 ]]; then
+  echo "no videofile found, exititing"
+  exit
+
+else
+  amixer -c 1
+  amixer cset numid=6 100 # Volume in %
+
+  # Set audio output to hdmi
+  # For alsa: -o alsa
+  omxplayer -o hdmi --no-osd --loop --layout 2.0 "$VIDEOFILE"
+fi
